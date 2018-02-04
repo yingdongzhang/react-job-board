@@ -8,16 +8,26 @@ import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import reducers from './reducers'
 import './config'
 
-const store = createStore(reducers, compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-))
+import './components/main.css'
+
+import Login from './containers/login/login'
+import Register from './containers/register/register'
+
+const store = createStore(
+    reducers, compose(
+        applyMiddleware(thunk),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+)
 
 ReactDOM.render(
     (<Provider store={store}>
         <BrowserRouter>
+            <div>
+                <Route path='/login' component={Login}></Route>
+                <Route path='/register' component={Register}></Route>
+            </div>
         </BrowserRouter>
     </Provider>),
     document.getElementById('root')
-);
-registerServiceWorker();
+)
