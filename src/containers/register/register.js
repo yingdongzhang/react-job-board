@@ -1,40 +1,22 @@
 import React from 'react'
-import Logo from '../../components/logo/logo'
-import { List,
-    InputItem,
-    WingBlank,
-    WhiteSpace,
-    Button,
-    Radio
-} from 'antd-mobile'
+import { connect } from 'react-redux'
+import RegisterVisual from '../../components/register/registerVisual'
+import { register } from '../../redux/user.redux'
 
-class Register extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            type: 'candidate'
+// redux api
+function mapStateToProps(state) {
+    return state.user
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onRegister: (state) => {
+            dispatch(register(state))
         }
     }
-    render() {
-        const RadioItem = Radio.RadioItem
-        return (
-            <div>
-                <Logo></Logo>
-                <List>
-                    <InputItem>Username</InputItem>
-                    <InputItem type='password'>Password</InputItem>
-                    <InputItem type='password'>Confirm</InputItem>
-                </List>
-                <WhiteSpace />
-                <List>
-                    <RadioItem checked={this.state.type === 'candidate'}>Candidate</RadioItem>
-                    <RadioItem checked={this.state.type === 'employer'}>Employer</RadioItem>
-                </List>
-                <WhiteSpace />
-                <Button type='primary'>Register</Button>
-            </div>
-        )
-    }
 }
+
+// container connect with UI component
+const Register = connect(mapStateToProps, mapDispatchToProps)(RegisterVisual)
 
 export default Register

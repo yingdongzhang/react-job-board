@@ -10,6 +10,7 @@ import './config'
 
 import './components/main.css'
 
+import AuthRoute from './containers/authroute/authroute'
 import Login from './containers/login/login'
 import Register from './containers/register/register'
 
@@ -24,6 +25,7 @@ ReactDOM.render(
     (<Provider store={store}>
         <BrowserRouter>
             <div>
+                <AuthRoute></AuthRoute>
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
             </div>

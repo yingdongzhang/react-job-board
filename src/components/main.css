@@ -3,3 +3,9 @@
 body {
     font-family: 'PT Sans', sans-serif;
 }
+
+.error-msg {
+    color: #f50;
+    padding-left: 10px;
+    padding-top: 5px;
+}
