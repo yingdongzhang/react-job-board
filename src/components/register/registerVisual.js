@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import Logo from '../../components/logo/logo'
 import { List,
     InputItem,
@@ -13,10 +14,11 @@ class RegisterVisual extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: '',
+            username: '',
             password: '',
             passwordConfirm: '',
             type: 'candidate',
+            redirectTo: ''
         }
         this.handleRegister = this.handleRegister.bind(this)
     }
@@ -32,11 +34,12 @@ class RegisterVisual extends React.Component {
         const RadioItem = Radio.RadioItem
         return (
             <div>
+                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
                 <Logo></Logo>
                 <WingBlank>
                     {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
                     <List>
-                        <InputItem onChange={v => this.handleChange('user', v)}>Username</InputItem>
+                        <InputItem onChange={v => this.handleChange('username', v)}>Username</InputItem>
                         <InputItem onChange={v => this.handleChange('password', v)} type='password'>Password</InputItem>
                         <InputItem onChange={v => this.handleChange('passwordConfirm', v)} type='password'>Confirm</InputItem>
                     </List>

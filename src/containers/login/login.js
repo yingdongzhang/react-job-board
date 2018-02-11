@@ -1,34 +1,21 @@
 import React from 'react'
-import Logo from '../../components/logo/logo'
-import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
+import { connect } from 'react-redux'
+import LoginVisual from '../../components/login/loginVisual'
+import { login } from '../../redux/user.redux'
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.register = this.register.bind(this)
-    }
-    register() {
-        // redirect to register route
-        this.props.history.push('./register')
-    }
-    render() {
-        return (
-            <div>
-                <Logo></Logo>
-                <WingBlank>
-                    <List>
-                        <InputItem>Username</InputItem>
-                        <WhiteSpace />
-                        <InputItem type='password'>Password</InputItem>
-                    </List>
-                    <WhiteSpace />
-                    <Button type='primary'>Login</Button>
-                    <WhiteSpace />
-                    <Button onClick={this.register} type='primary'>Register</Button>
-                </WingBlank>
-            </div>
-        )
+// redux api
+function mapStateToProps(state) {
+    return state.user
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onLogin: (state) => {
+            dispatch(login(state))
+        }
     }
 }
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(LoginVisual)
 
 export default Login
