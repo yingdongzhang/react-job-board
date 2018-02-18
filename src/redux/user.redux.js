@@ -5,9 +5,9 @@ const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const REGISTER_ERROR = 'REGISTER_ERROR'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_ERROR = 'LOGIN_ERROR'
+const LOAD_DATA = 'LOAD_DATA'
 const initState = {
     username: '',
-    password: '',
     isAuth: false,
     msg: '',
     type: '',
@@ -23,6 +23,8 @@ export function user(state = initState, action) {
         case REGISTER_ERROR:
         case LOGIN_ERROR:
             return {...state, isAuth: false, msg: action.msg}
+        case LOAD_DATA:
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -61,6 +63,10 @@ export function login({username, password}) {
             }
         })
     }
+}
+
+export function loadUserInfo(userInfo) {
+    return { type:LOAD_DATA, payload: userInfo }
 }
 
 function onRegisterSuccess(data) {
