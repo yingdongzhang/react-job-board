@@ -15,6 +15,7 @@
     "express": "^4.16.2",
     "mongoose": "^5.0.1",
     "prettier-eslint": "^8.8.1",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-app-rewired": "^1.4.0",
     "react-dom": "^16.2.0",

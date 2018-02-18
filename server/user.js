@@ -40,7 +40,7 @@ Router.post('/login', function (req, res) {
         if (err) {
             return res.json({code: 1, msg: `Error creating user ${err}}`})
         }
-        return res.json({code: 404, msg: `User ${username} not found}`})
+        return res.json({code: 404, msg: `User ${username} not found`})
     })
 })
 
@@ -56,6 +56,25 @@ Router.get('/info', function (req, res) {
         if (doc) {
             return res.json({code:0, data: doc})
         }
+    })
+})
+
+Router.post('/update', function (req, res) {
+    const {userid} = req.cookies
+    if (!userid) {
+        return res.json({code: 1})
+    }
+    const body = req.body
+    User.findByIdAndUpdate(userid, body, function (err, doc) {
+        if (err) {
+            return res.json({code: 1, msg: err})
+        }
+        const data = Object.assign({}, {
+            username: doc.username,
+            type: doc.type,
+            avatar: doc.avatar
+        }, body)
+        return res.json({code:0, data: data})
     })
 })
 

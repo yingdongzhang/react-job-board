@@ -6,6 +6,7 @@ const REGISTER_ERROR = 'REGISTER_ERROR'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_ERROR = 'LOGIN_ERROR'
 const LOAD_DATA = 'LOAD_DATA'
+const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS'
 const initState = {
     username: '',
     isAuth: false,
@@ -19,6 +20,7 @@ export function user(state = initState, action) {
     switch (action.type) {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
+        case PROFILE_UPDATE_SUCCESS:
             return {...state, isAuth: true, msg: '', redirectTo: getRedirectPath(action.payload),...action.payload}
         case REGISTER_ERROR:
         case LOGIN_ERROR:
@@ -42,7 +44,7 @@ export function register({username, password, passwordConfirm, type}) {
     return dispatch => {
         axios.post('/user/register', {username, password, type}).then(res => {
             if (res.status == 200 && res.data.code === 0) {
-                dispatch(onRegisterSuccess({username, password, type}))
+                dispatch(onRegisterSuccess({username, type}))
             } else {
                 dispatch(errorMsg(res.data.msg))
             }
@@ -57,7 +59,21 @@ export function login({username, password}) {
     return dispatch => {
         axios.post('/user/login', {username, password}).then(res => {
             if (res.status == 200 && res.data.code === 0) {
-                dispatch(onLoginSuccess({username, password, 'type': res.data.type}))
+                dispatch(onLoginSuccess({
+                  username, 'type': res.data.data.type, 'avatar': res.data.data.avatar
+                }))
+            } else {
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
+export function update(data) {
+    return dispatch => {
+        axios.post('/user/update', data).then(res => {
+            if (res.status == 200 && res.data.code === 0) {
+                dispatch(onProfileUpdateSuccess(res.data.data))
             } else {
                 dispatch(errorMsg(res.data.msg))
             }
@@ -75,6 +91,10 @@ function onRegisterSuccess(data) {
 
 function onLoginSuccess(data) {
     return { type:LOGIN_SUCCESS, payload: data }
+}
+
+function onProfileUpdateSuccess(data) {
+    return { type:PROFILE_UPDATE_SUCCESS, payload: data }
 }
 
 function errorMsg(msg) {

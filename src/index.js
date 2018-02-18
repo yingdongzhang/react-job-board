@@ -11,6 +11,8 @@ import './config'
 import './components/main.css'
 
 import AuthRoute from './containers/authroute/authroute'
+import EmployerProfile from './containers/employerProfile/employerProfile'
+import CandidateProfile from './containers/candidateProfile/candidateProfile'
 import Login from './containers/login/login'
 import Register from './containers/register/register'
 
@@ -26,6 +28,8 @@ ReactDOM.render(
         <BrowserRouter>
             <div>
                 <AuthRoute></AuthRoute>
+                <Route path='/employer/profile' component={EmployerProfile}></Route>
+                <Route path='/candidate/profile' component={CandidateProfile}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
             </div>
