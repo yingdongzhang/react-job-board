@@ -1,4 +1,4 @@
-# Work in progress. This line will be removed when complete.
+# Work in progress.
 # React Job Board
 A basic job board application written in react for practice.
 
@@ -11,6 +11,7 @@ A basic job board application written in react for practice.
 
 
 ## Run the app
+* Start mongodb `mongod --config /usr/local/etc/mongod.conf`
 * `yarn install` or `npm install`
 * Install [nodemon](https://github.com/remy/nodemon) if you don't have it. Once installed, cd into `server`, then run `nodemon server.js`
 * Open a new terminal, under the root directory run `yarn run start`
